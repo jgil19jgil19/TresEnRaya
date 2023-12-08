@@ -43,4 +43,18 @@
 
 .no_clickable {
 	cursor: not-allowed;
+  pointer-events: none;
+}
+
+.myheader {
+  background-color: #282c34;
+  /*min-height: 100vh;*/
+  max-width: 9.7em;
+  width: 9.7em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 
 export default function Reset(props) {
   function click() {
@@ -6,8 +7,8 @@ export default function Reset(props) {
   }
 
   return(
-    <button onClick={click} >
+    <Button variant="warning" style={{margin: .1 + 'em'}} onClick={click} >
       Reset
-    </button>
+    </Button>
   );    
 }

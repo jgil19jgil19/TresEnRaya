@@ -2,14 +2,54 @@ import './App.css';
 import Header from './Header';
 import Board from './Board';
 import Reset from './Reset';
-import { useState, useEffect } from 'react';
+import Deshacer from './Deshacer';
 
-const PLAYERX = "Player 1 - Xs";
-const PLAYER0 = "Player 2 - 0s";
-const MYURL = "https://api.npoint.io/c734e05e43c5b87dd971";
+//import { useState, useEffect } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { playPosition, reset, deshacer } from '../redux/actions';
 
+//const PLAYERX = "Player 1 - Xs";
+//const PLAYER0 = "Player 2 - 0s";
+//const MYURL = "https://api.npoint.io/c734e05e43c5b87dd971";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.appClick = this.appClick.bind(this);
+    this.resetClick = this.resetClick.bind(this);
+    this.deshacerClick = this.deshacerClick.bind(this);
+  }
+  appClick(rowNumber, columnNumber) {
+    this.props.dispatch(playPosition(rowNumber, columnNumber, this.props.turn, this.props.values, this.resetClick, this.props.historico ));
+  }
+  resetClick() {
+    this.props.dispatch(reset());
+  }
+  deshacerClick() {
+    this.props.dispatch(deshacer(this.props.historico, this.props.turn));
+  }
+  
+  render() {
+    let text = "Turn of " + this.props.turn;
+    return (
+      <div>
+        <Header text={text} />
+        <Board values={this.props.values} appClick={this.appClick} />
+        <h3>Number of moves: {this.props.moves}</h3>
+        <Reset resetClick={this.resetClick} />
+        <Deshacer deshacerClick={this.deshacerClick} />
+      </div>
+    );
+  }
+}
+function mapStateToProps(state) {
+  return { ...state };
+}
+export default connect(mapStateToProps)(App);
+
+/*function App() {
   const [turn, setTurn] = useState(PLAYERX);
   const [moves, setMoves] = useState(0);
   const [values, setValues] = useState([
@@ -68,4 +108,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;*/
