@@ -4,6 +4,9 @@ import Board from './Board';
 import Reset from './Reset';
 import Deshacer from './Deshacer';
 
+import { PLAYERX } from '../constants/constants';
+
+
 //import { useState, useEffect } from 'react';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -30,16 +33,18 @@ class App extends React.Component {
   deshacerClick() {
     this.props.dispatch(deshacer(this.props.historico, this.props.turn));
   }
-  
   render() {
+    //alert(this.props.finalizado);
+
     let text = "Turn of " + this.props.turn;
     return (
       <div>
         <Header text={text} />
-        <Board values={this.props.values} appClick={this.appClick} />
+        <Board values={this.props.values} appClick={this.appClick} thisProps={this.props}/>
         <h3>Number of moves: {this.props.moves}</h3>
         <Reset resetClick={this.resetClick} />
         <Deshacer deshacerClick={this.deshacerClick} />
+        {this.props.finalizado&&<Header text={this.props.turn===PLAYERX?'¡GANA 000!':'¡GANA XXX!'} />}
       </div>
     );
   }

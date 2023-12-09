@@ -14,9 +14,9 @@ export default function Square(props) {
       props.boardClick(props.rowIndex, props.columnIndex);
     } else { alert('No se pueden mover las fichas ya puestas.')}
   }
-
+  
   return (
-    <Button style={squareStyle} variant={props.value==='-'?"info":props.value==='X'?"primary":"success"} onClick={squareClick} className={props.value === "-" ? "clickable" : "no_clickable"}>
+    <Button style={squareStyle} variant={props.value==='-'?"info":props.value==='X'?"primary":"success"} onClick={squareClick} className={props.value === "-" ?props.thisProps.finalizado?"no_clickable" : "clickable" : "no_clickable"}>
       {props.value}
     </Button>
   );
