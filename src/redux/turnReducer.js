@@ -10,7 +10,11 @@ function turnReducer(state = PLAYERX, action) {
         case 'RESET':
             return PLAYERX;
         case 'DESHACER':
-            if (action.historico.length > 1)
+            if (action.historico.n)
+                return action.turn === PLAYERX ? PLAYER0 : PLAYERX;
+            else return state;
+        case 'REHACER':
+            if (action.historico.n<action.historico.values.length )
                 return action.turn === PLAYERX ? PLAYER0 : PLAYERX;
             else return state;
         default:

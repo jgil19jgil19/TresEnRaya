@@ -21,3 +21,11 @@ export function deshacer(historico, turn) {
         turn: turn
     };
 }
+
+export function rehacer(historico, turn) {
+    return {
+        type: 'REHACER',
+        historico: historico,
+        turn: turn
+    };
+}

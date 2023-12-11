@@ -7,7 +7,7 @@ export default function Deshacer(props) {
   }
 
   return(
-    <Button variant="warning" style={{margin: .1 + 'em'}} onClick={click} >
+    props.thisProps.historico.n>1&&<Button variant="warning" style={{margin: .1 + 'em'}} onClick={click} >
       Deshacer
     </Button>
   );    

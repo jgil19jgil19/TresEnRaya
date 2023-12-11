@@ -10,7 +10,7 @@ const comprueba = (values) => {
         (values[0][2] === values[1][2] && values[0][2] === values[2][2] && values[0][2] !== '-');
     let por_diag = (values[0][0] === values[1][1] && values[0][0] === values[2][2] && values[0][0] !== '-') ||
         (values[0][2] === values[1][1] && values[0][2] === values[2][0] && values[0][2] !== '-');
-    
+
     //alert(JSON.stringify(values)+'kkk'+(por_fila || por_col || por_diag));
     return (por_fila || por_col || por_diag)
 }
@@ -28,6 +28,14 @@ function finalizadoReducer(state = false, action) {
             return false;
         case 'DESHACER':
             return false;
+        case 'REHACER':
+            //console.log(action.historico.values.length+ 'vs'+ action.historico.n)
+            if (action.historico.values.length > action.historico.n) {
+                //let newValue_R = action.turn === PLAYERX ? 'X' : '0';
+                //console.log(JSON.stringify(action.historico.values[action.historico.n]))
+                let tablero_R = JSON.parse(action.historico.values[action.historico.n]);
+                return comprueba(tablero_R);
+            }else return state;
         default:
             return state;
     }

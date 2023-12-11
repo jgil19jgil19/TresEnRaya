@@ -3,6 +3,8 @@ import Header from './Header';
 import Board from './Board';
 import Reset from './Reset';
 import Deshacer from './Deshacer';
+import Rehacer from './Rehacer';
+
 
 import { PLAYERX } from '../constants/constants';
 
@@ -10,7 +12,7 @@ import { PLAYERX } from '../constants/constants';
 //import { useState, useEffect } from 'react';
 import React from 'react';
 import { connect } from 'react-redux';
-import { playPosition, reset, deshacer } from '../redux/actions';
+import { playPosition, reset, deshacer, rehacer } from '../redux/actions';
 
 //const PLAYERX = "Player 1 - Xs";
 //const PLAYER0 = "Player 2 - 0s";
@@ -23,6 +25,8 @@ class App extends React.Component {
     this.appClick = this.appClick.bind(this);
     this.resetClick = this.resetClick.bind(this);
     this.deshacerClick = this.deshacerClick.bind(this);
+    this.rehacerClick = this.rehacerClick.bind(this);
+
   }
   appClick(rowNumber, columnNumber) {
     this.props.dispatch(playPosition(rowNumber, columnNumber, this.props.turn, this.props.values, this.resetClick, this.props.historico ));
@@ -32,6 +36,9 @@ class App extends React.Component {
   }
   deshacerClick() {
     this.props.dispatch(deshacer(this.props.historico, this.props.turn));
+  }
+  rehacerClick() {
+    this.props.dispatch(rehacer(this.props.historico, this.props.turn));
   }
   render() {
     //alert(this.props.finalizado);
@@ -43,7 +50,8 @@ class App extends React.Component {
         <Board values={this.props.values} appClick={this.appClick} thisProps={this.props}/>
         <h3>Number of moves: {this.props.moves}</h3>
         <Reset resetClick={this.resetClick} />
-        <Deshacer deshacerClick={this.deshacerClick} />
+        <Deshacer deshacerClick={this.deshacerClick} thisProps={this.props}/>
+        <Rehacer rehacerClick={this.rehacerClick} thisProps={this.props}/>
         {this.props.finalizado&&<Header text={this.props.turn===PLAYERX?'¡GANA 000!':'¡GANA XXX!'} />}
       </div>
     );

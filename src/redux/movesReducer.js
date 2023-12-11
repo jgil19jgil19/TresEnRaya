@@ -5,7 +5,10 @@ function movesReducer(state = 0, action) {
         case 'RESET':
             return 0;
         case 'DESHACER':
-            if(state>0)return state-1;
+            if (state > 0) return state - 1;
+            else return state;
+        case 'REHACER':
+            if (action.historico.n < action.historico.values.length) return state + 1;
             else return state;
         default:
             return state;

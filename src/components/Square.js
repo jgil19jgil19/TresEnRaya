@@ -9,6 +9,7 @@ const squareStyle = {
 
 export default function Square(props) {
 
+
   function squareClick() {
     if (props.value === "-") {
       props.boardClick(props.rowIndex, props.columnIndex);

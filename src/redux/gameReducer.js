@@ -38,9 +38,16 @@ function gameReducer(state = VALUES, action) {
         case 'RESET':
             return VALUES;
         case 'DESHACER':
-
-            if (action.historico.length > 1) {
-                let newState_1 = JSON.parse(action.historico[action.historico.length - 2]);
+            if (action.historico.n > 1) {
+                let newState_1 = JSON.parse(action.historico.values[action.historico.n - 2]);
+                return newState_1;
+            } else {
+                return state;
+            }
+        case 'REHACER':
+            if (action.historico.n < action.historico.values.length) {
+                let newState_1 = JSON.parse(action.historico.values[action.historico.n]);
+                console.log('+++++'+newState_1);
                 return newState_1;
             } else {
                 return state;
