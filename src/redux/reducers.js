@@ -4,6 +4,8 @@ import turnReducer from './turnReducer';
 import movesReducer from './movesReducer';
 import historicoReducer from './historicoReducer';
 import finalizadoReducer from './finalizadoReducer';
+import faseReducer from './faseReducer';
+
 
 
 const GlobalState = combineReducers({
@@ -11,7 +13,8 @@ const GlobalState = combineReducers({
     values: gameReducer,
     moves: movesReducer,
     historico: historicoReducer,
-    finalizado: finalizadoReducer
+    finalizado: finalizadoReducer,
+    faseTurno: faseReducer
 });
 
 export default GlobalState;

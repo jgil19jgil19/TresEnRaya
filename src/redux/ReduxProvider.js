@@ -8,7 +8,8 @@ import App from '../components/App';
 export default class ReduxProvider extends React.Component {
     constructor(props) {
         super(props);
-        this.initialState = { values: VALUES, turn: PLAYERX, moves: 0, historico:{values:[JSON.stringify(VALUES)],n:1}, finalizado:false }
+        this.initialState = { values: VALUES, turn: PLAYERX, moves: 0, historico:{values:[JSON.stringify(VALUES)],n:1},
+         finalizado:false, faseTurno:{fase:0,x:-1,y:-1,turno:'X'}}
         this.store = createStore(GlobalState, this.initialState);
     }
     render() {

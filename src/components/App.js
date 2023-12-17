@@ -29,16 +29,16 @@ class App extends React.Component {
 
   }
   appClick(rowNumber, columnNumber) {
-    this.props.dispatch(playPosition(rowNumber, columnNumber, this.props.turn, this.props.values, this.resetClick, this.props.historico ));
+    this.props.dispatch(playPosition(rowNumber, columnNumber, this.props.turn, this.props.values, this.resetClick, this.props.historico, this.props.faseTurno, this.props.moves ));
   }
   resetClick() {
     this.props.dispatch(reset());
   }
   deshacerClick() {
-    this.props.dispatch(deshacer(this.props.historico, this.props.turn));
+    this.props.dispatch(deshacer(this.props.historico, this.props.turn, this.props.moves, this.props.faseTurno));
   }
   rehacerClick() {
-    this.props.dispatch(rehacer(this.props.historico, this.props.turn));
+    this.props.dispatch(rehacer(this.props.historico, this.props.turn, this.props.moves, this.props.faseTurno));
   }
   render() {
     //alert(this.props.finalizado);
@@ -52,6 +52,7 @@ class App extends React.Component {
         <Reset resetClick={this.resetClick} />
         <Deshacer deshacerClick={this.deshacerClick} thisProps={this.props}/>
         <Rehacer rehacerClick={this.rehacerClick} thisProps={this.props}/>
+        {!this.props.finalizado&&<header className="info">{this.props.faseTurno.fase===0?'Se debe poner en el centro.':this.props.faseTurno.fase===2?'Elige la casilla para poner la ficha':'Elige la ficha a desplazar'} </header>} 
         {this.props.finalizado&&<Header text={this.props.turn===PLAYERX?'¡GANA 000!':'¡GANA XXX!'} />}
       </div>
     );

@@ -1,4 +1,4 @@
-export function playPosition(x, y, turn, values, reset, historico) {
+export function playPosition(x, y, turn, values, reset, historico, faseTurno, moves) {
     return {
         type: 'PLAY_POSITION',
         x: x,
@@ -6,7 +6,9 @@ export function playPosition(x, y, turn, values, reset, historico) {
         turn: turn,
         values: values,
         reset: reset,
-        historico: historico
+        historico: historico,
+        faseTurno: faseTurno,
+        moves: moves
     };
 }
 
@@ -14,18 +16,22 @@ export function reset() {
     return { type: 'RESET' };
 }
 
-export function deshacer(historico, turn) {
+export function deshacer(historico, turn, moves, faseTurno) {
     return {
         type: 'DESHACER',
         historico: historico,
-        turn: turn
+        turn: turn,
+        moves:moves,
+        faseTurno:faseTurno
     };
 }
 
-export function rehacer(historico, turn) {
+export function rehacer(historico, turn, moves, faseTurno) {
     return {
         type: 'REHACER',
         historico: historico,
-        turn: turn
+        turn: turn,
+        moves:moves,
+        faseTurno:faseTurno
     };
 }

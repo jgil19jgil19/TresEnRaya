@@ -20,10 +20,15 @@ function finalizadoReducer(state = false, action) {
     //console.log(',,,,,,,'+JSON.stringify(action))
     switch (action.type) {
         case 'PLAY_POSITION':
-            let newValue = action.turn === PLAYERX ? 'X' : '0';
-            let tablero = JSON.parse(JSON.stringify(action.values));
-            tablero[action.x][action.y] = newValue;
-            return comprueba(tablero);
+            if(action.faseTurno.fase===2){
+                let newValue = action.turn === PLAYERX ? 'X' : '0';
+                let tablero = JSON.parse(JSON.stringify(action.values));
+                if(action.faseTurno.x>-1||action.faseTurno.y>-1){
+                    tablero[action.faseTurno.x][action.faseTurno.y]='-';
+                }
+                tablero[action.x][action.y] = newValue;
+                return comprueba(tablero);
+            }else return false;
         case 'RESET':
             return false;
         case 'DESHACER':

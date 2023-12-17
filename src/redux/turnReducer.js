@@ -6,12 +6,15 @@ function turnReducer(state = PLAYERX, action) {
 
     switch (action.type) {
         case 'PLAY_POSITION':
-            return action.turn === PLAYERX ? PLAYER0 : PLAYERX;
+            if(action.faseTurno.fase===1) return state;
+            else return action.turn === PLAYERX ? PLAYER0 : PLAYERX;
         case 'RESET':
             return PLAYERX;
         case 'DESHACER':
             if (action.historico.n)
-                return action.turn === PLAYERX ? PLAYER0 : PLAYERX;
+                if(action.moves<6||action.faseTurno.fase===1)
+                    return action.turn === PLAYERX ? PLAYER0 : PLAYERX;
+                else return state;
             else return state;
         case 'REHACER':
             if (action.historico.n<action.historico.values.length )

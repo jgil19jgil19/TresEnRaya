@@ -58,3 +58,16 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.info {
+  background-color: #f7c3c3;
+  /*min-height: 100vh;*/
+  max-width: 20em;
+  width: 16em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(11px + 2vmin);
+  color: #282c34;
+}

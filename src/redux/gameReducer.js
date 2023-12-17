@@ -32,22 +32,41 @@ function gameReducer(state = VALUES, action) {
         case 'PLAY_POSITION':
             let newValue = action.turn === PLAYERX ? 'X' : '0';
             let newState = JSON.parse(JSON.stringify(state));
-            newState[action.x][action.y] = newValue;
+            switch (action.faseTurno.fase){
+                case 0:
+                    newState[action.x][action.y] = newValue;
+                    return newState;
+                case 1:
+                    return newState;
+                case 2:
+                    if(action.faseTurno.x>-1||action.faseTurno.y>-1){
+                        newState[action.faseTurno.x][action.faseTurno.y]='-';
+                    }
+                    newState[action.x][action.y] = newValue;
+                    return newState;
+            }
+            //newState[action.x][action.y] = newValue;
             //comprueba(newState, action.turn, action.reset);
-            return newState;
+            //return newState;
         case 'RESET':
             return VALUES;
         case 'DESHACER':
             if (action.historico.n > 1) {
-                let newState_1 = JSON.parse(action.historico.values[action.historico.n - 2]);
-                return newState_1;
+                if(action.moves<6||action.faseTurno.fase===1){
+                    //console.log(JSON.stringify(action.historico))
+                    //console.log(action.historico.values[action.historico.n - 2])
+                    return JSON.parse(action.historico.values[action.historico.n - 2])
+                }else{                    
+                    //console.log(action.historico.values[action.historico.n - 1])
+                    return JSON.parse(action.historico.values[action.historico.n - 1])
+                }
             } else {
                 return state;
             }
         case 'REHACER':
             if (action.historico.n < action.historico.values.length) {
                 let newState_1 = JSON.parse(action.historico.values[action.historico.n]);
-                console.log('+++++'+newState_1);
+                //console.log('+++++'+newState_1);
                 return newState_1;
             } else {
                 return state;
