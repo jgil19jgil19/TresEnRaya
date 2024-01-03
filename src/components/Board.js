@@ -10,7 +10,7 @@ export default function Board(props) {
   let row = rowValues.map((value, columnIndex) => {
       return (
           <Square value={value} key={rowIndex + "-" + columnIndex} rowIndex={rowIndex}
-                  columnIndex={columnIndex} boardClick={boardClick} thisProps={props.thisProps}/>
+                  columnIndex={columnIndex} boardClick={boardClick} />
       );
    });
    return (

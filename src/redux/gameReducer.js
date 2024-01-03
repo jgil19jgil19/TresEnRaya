@@ -71,6 +71,20 @@ function gameReducer(state = VALUES, action) {
             } else {
                 return state;
             }
+        case 'REPLAY':
+            //alert(action.modoPlay)
+            /*if(!action.modoPlay&&action.vez===0 || action.modoPlay){
+                if (action.vez<action.historico.values.length-1){
+                    setTimeout(action.replay,1000,action.vez+1)
+                }
+                return JSON.parse(action.historico.values[action.vez])
+
+            } else return JSON.parse(action.historico.values[action.historico.n])*/
+            if (action.vez<action.historico.values.length-1){
+                setTimeout(action.replay,1000,action.vez+1)
+            }
+            return JSON.parse(action.historico.values[action.vez])
+            
         default:
             return state;
     }

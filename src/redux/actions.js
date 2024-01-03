@@ -35,3 +35,13 @@ export function rehacer(historico, turn, moves, faseTurno) {
         faseTurno:faseTurno
     };
 }
+
+export function replay(vez, historico, replay, modoPlay) {
+    return {
+        type: 'REPLAY',
+        vez: vez,
+        historico: historico,
+        replay: replay,
+        modoPlay: modoPlay
+    };
+}

@@ -8,7 +8,7 @@ export default function Rehacer(props) {
   }
 
   return(
-    props.thisProps.historico.n<props.thisProps.historico.values.length&&<Button variant="warning" style={{margin: .1 + 'em'}} onClick={click} >
+    props.thisProps.historico.n<props.thisProps.historico.values.length&&!props.thisProps.modoPlay&&<Button variant="warning" style={{margin: .1 + 'em'}} onClick={click} >
       Rehacer
     </Button>
   );    

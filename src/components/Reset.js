@@ -7,7 +7,7 @@ export default function Reset(props) {
   }
 
   return(
-    <Button variant="warning" style={{margin: .1 + 'em'}} onClick={click} >
+    !props.modoPlay&&<Button variant="warning" style={{margin: .1 + 'em'}} onClick={click} >
       Reset
     </Button>
   );    
