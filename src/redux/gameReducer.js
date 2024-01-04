@@ -80,7 +80,7 @@ function gameReducer(state = VALUES, action) {
                 return JSON.parse(action.historico.values[action.vez])
 
             } else return JSON.parse(action.historico.values[action.historico.n])*/
-            if (action.vez<action.historico.values.length-1){
+            if (action.vez<action.historico.n-1){
                 setTimeout(action.replay,1000,action.vez+1)
             }
             return JSON.parse(action.historico.values[action.vez])
