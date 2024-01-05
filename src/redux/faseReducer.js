@@ -52,7 +52,7 @@ function faseReducer(state = {fase:0,x:-1,y:-1,turno:'X'}, action) {
         case 'DESHACER':
             let newValue = action.turn === PLAYERX ? '0' : 'X';
             if(action.moves===1) return {fase:0, x:1, y:1,turno:'X'};
-            else if (action.moves<6) return {fase:2, x:-1, y:-1, turno:newValue};
+            else if (action.moves<7) return {fase:2, x:-1, y:-1, turno:newValue};
             else {//moves 6 y siguentes
                 if(state.fase===1) return {fase:1, x:-1, y:-1, turno:newValue};
                 else return {fase:1, x:1, y:1, turno:state.turno}
