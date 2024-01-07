@@ -44,6 +44,7 @@ function gameReducer(state = VALUES, action) {
                     }
                     newState[action.x][action.y] = newValue;
                     return newState;
+                default: return state;//nunca se debe llegar
             }
             //newState[action.x][action.y] = newValue;
             //comprueba(newState, action.turn, action.reset);

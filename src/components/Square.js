@@ -46,6 +46,11 @@ function Square(props) {
           {props.value}
         </Button>
       )
+    default: return (
+      <Button style={squareStyle} variant={props.value === '-' || (props.rowIndex === props.faseTurno.x && props.columnIndex === props.faseTurno.y) ? "info" : props.value === 'X' ? "primary" : "success"} onClick={squareClick} className={props.value === "-" ? props.finalizado ? "no_clickable" : "clickable" : "no_clickable"}>
+          {props.value}
+        </Button>
+    )
   }
 }
 

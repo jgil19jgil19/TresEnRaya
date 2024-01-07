@@ -11,7 +11,7 @@ function Replay(props) {
 
   return(
     props.historico.n>1&&<Button variant="warning" style={{margin: .1 + 'em'}} onClick={click} >
-      <img src="./play.png" style={{width:2+'em'}}></img>
+      <img src="./play.png" style={{width:2+'em'}} alt="boton play"></img>
     </Button>
   );    
 }
