@@ -5,6 +5,7 @@ import Reset from './Reset';
 import Deshacer from './Deshacer';
 import Rehacer from './Rehacer';
 import Replay from './Replay';
+import SelectorJugador from './SelectorJuagador';
 
 
 
@@ -14,7 +15,7 @@ import { PLAYERX } from '../constants/constants';
 //import { useState, useEffect } from 'react';
 import React from 'react';
 import { connect } from 'react-redux';
-import { playPosition, reset, deshacer, rehacer,replay } from '../redux/actions';
+import { playPosition, reset , deshacer, rehacer, replay } from '../redux/actions';
 
 //const PLAYERX = "Player 1 - Xs";
 //const PLAYER0 = "Player 2 - 0s";
@@ -60,6 +61,9 @@ class App extends React.Component {
         {!this.props.finalizado&&<header className="info">{this.props.faseTurno.fase===0?'Se debe poner en el centro.':this.props.faseTurno.fase===2?'Elige la casilla para poner la ficha':'Elige la ficha a desplazar'} </header>} 
         {this.props.finalizado&&<Header text={this.props.turn===PLAYERX?'¡GANA 000!':'¡GANA XXX!'} />}
         <Replay replayClick={this.replayClick} thisProps={this.props}/>
+        <SelectorJugador ficha="X"/>
+        <SelectorJugador ficha="0"/>
+
       </div>
     );
   }
