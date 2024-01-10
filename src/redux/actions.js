@@ -45,3 +45,11 @@ export function replay(vez, historico, replay, modoPlay) {
         modoPlay: modoPlay
     };
 }
+
+export function cambiaModo(jugador, modo) {
+    return {
+        type: 'CAMBIAMODO',
+        jugador: jugador,
+        modo: modo
+    };
+}

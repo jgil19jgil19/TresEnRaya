@@ -26,28 +26,31 @@ function Square(props) {
   }
 
   let central = props.rowIndex === 1 && props.columnIndex === 1;
+  //props.setBotones(props.rowIndex,props.columnIndex,this);
+  //props.botones[props.rowIndex][props.columnIndex]=this;
   //console.log(JSON.stringify(props.thisProps.faseTurno))
+  //console.log('++++'+props.tuId)
   switch (props.faseTurno.fase) {
     case 0:
       return (
-        <Button style={squareStyle} variant={props.value === '-' ? "info" : props.value === 'X' ? "primary" : "success"} onClick={squareClick} className={props.rowIndex === 1 && props.columnIndex === 1 ? props.finalizado ? "no_clickable" : "clickable" : "no_clickable"}>
+        <Button style={squareStyle} variant={props.value === '-' ? "info" : props.value === 'X' ? "primary" : "success"} onClick={squareClick} className={props.rowIndex === 1 && props.columnIndex === 1 ? props.finalizado ? "no_clickable" : "clickable" : "no_clickable"} ref = { props.boton } id={props.tuId}>
           {props.value}
         </Button>
       )
     case 1:
       return (
-        <Button style={squareStyle} variant={props.value === '-' ? "info" : props.value === 'X' ? "primary" : "success"} onClick={squareClick} className={props.value === props.faseTurno.turno && !central ? props.finalizado ? "no_clickable" : "clickable" : "no_clickable"}>
+        <Button style={squareStyle} variant={props.value === '-' ? "info" : props.value === 'X' ? "primary" : "success"} onClick={squareClick} className={props.value === props.faseTurno.turno && !central ? props.finalizado ? "no_clickable" : "clickable" : "no_clickable"} ref = { props.boton } id={props.tuId}>
           {props.value}
         </Button>
       )
     case 2:
       return (
-        <Button style={squareStyle} variant={props.value === '-' || (props.rowIndex === props.faseTurno.x && props.columnIndex === props.faseTurno.y) ? "info" : props.value === 'X' ? "primary" : "success"} onClick={squareClick} className={props.value === "-" ? props.finalizado ? "no_clickable" : "clickable" : "no_clickable"}>
+        <Button style={squareStyle} variant={props.value === '-' || (props.rowIndex === props.faseTurno.x && props.columnIndex === props.faseTurno.y) ? "info" : props.value === 'X' ? "primary" : "success"} onClick={squareClick} className={props.value === "-" ? props.finalizado ? "no_clickable" : "clickable" : "no_clickable"} ref = { props.boton } id={props.tuId}>
           {props.value}
         </Button>
       )
     default: return (
-      <Button style={squareStyle} variant={props.value === '-' || (props.rowIndex === props.faseTurno.x && props.columnIndex === props.faseTurno.y) ? "info" : props.value === 'X' ? "primary" : "success"} onClick={squareClick} className={props.value === "-" ? props.finalizado ? "no_clickable" : "clickable" : "no_clickable"}>
+      <Button style={squareStyle} variant={props.value === '-' || (props.rowIndex === props.faseTurno.x && props.columnIndex === props.faseTurno.y) ? "info" : props.value === 'X' ? "primary" : "success"} onClick={squareClick} className={props.value === "-" ? props.finalizado ? "no_clickable" : "clickable" : "no_clickable"} ref = { props.boton } id={props.tuId}>
           {props.value}
         </Button>
     )

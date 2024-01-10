@@ -5,7 +5,8 @@ import movesReducer from './movesReducer';
 import historicoReducer from './historicoReducer';
 import finalizadoReducer from './finalizadoReducer';
 import faseReducer from './faseReducer';
-import modoPlayReducer from './modoPlayReducer.js'
+import modoPlayReducer from './modoPlayReducer.js';
+import jugadoresReducer from './jugadoresReducer.js';
 
 
 
@@ -16,7 +17,8 @@ const GlobalState = combineReducers({
     historico: historicoReducer,
     finalizado: finalizadoReducer,
     faseTurno: faseReducer,
-    modoPlay: modoPlayReducer
+    modoPlay: modoPlayReducer,
+    jugadores:jugadoresReducer
 });
 
 export default GlobalState;
