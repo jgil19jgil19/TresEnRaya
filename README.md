@@ -4,10 +4,13 @@ Un jugador gana cuando pone sus tres piezas en alineadas horizontalmente, vertic
 
 Una vez clonado, se cambia a la carpeta del proyecto:
   cd TresEnRaya
+  
 Se deben instalar las dependencias:
   npm install
+  
 Se arranca la aplicacion, que abrirá el navegado con la página del juego:
   npm start
+  
 
 Se puede jugar contra otra persona o configurar para que uno de los jugadores sea controlado por el ordenador.
 
