@@ -1,3 +1,17 @@
+Juego de las tres en raya, consiste en poner tres piezas alineadas en un tablero de 9 casillas.
+Uno de los jugadores ocupa la casilla central y no puede desplazarla.
+Un jugador gana cuando pone sus tres piezas en alineadas horizontalmente, verticalmente o en diagonal.
+
+Una vez clonado, se cambia a la carpeta del proyecto:
+  cd TresEnRaya
+Se deben instalar las dependencias:
+  npm install
+Se arranca la aplicacion, que abrirá el navegado con la página del juego:
+  npm start
+
+Se puede jugar contra otra persona o configurar para que uno de los jugadores sea controlado por el ordenador.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
