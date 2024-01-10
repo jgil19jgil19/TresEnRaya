@@ -6,7 +6,6 @@ import Deshacer from './Deshacer';
 import Rehacer from './Rehacer';
 import Replay from './Replay';
 import SelectorJugador from './SelectorJuagador';
-import Prueba from './Prueba';
 
 
 
@@ -34,7 +33,7 @@ class App extends React.Component {
     this.cambiaModoChange = this.cambiaModoChange.bind(this);
 
     this.botones = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {//creacion de las referencias para hacer click en los botones
       for (let j = 0; j < 3; j++) {
         this.botones[i][j] = React.createRef();
       }
@@ -64,7 +63,7 @@ class App extends React.Component {
     setTimeout(() => { this.ordenadorFacil() }, 10);
   }
 
-  ordenadorFacil() {
+  ordenadorFacil() {//inteligencia del ordenador para determinar sus movimientos
     if (this.props.finalizado) return;
     let casX = [];
     let cas0 = [];
@@ -92,6 +91,9 @@ class App extends React.Component {
       } else {
         let casEl;
         let casGan;
+        let casEl0;
+        let casGan0;
+
         if (casX.length > 0) {
           for (let i = 0; i < casX.length; i++) {
             let c = casX[i];
@@ -102,6 +104,40 @@ class App extends React.Component {
             }
           }
         }
+        //alert(JSON.stringify(casGan))
+        if(casGan === undefined){//alert('se entra')
+          if (cas0.length === 2) {
+            //alert(cas0[0].row+'-'+cas0[1].row+'|'+this.props.values[cas0[0].row][3-cas0[0].col-cas0[1].col])
+            if (cas0[0].row === cas0[1].row && this.props.values[cas0[0].row][3 - cas0[0].col - cas0[1].col] === '-') {
+              casGan0 = { row: cas0[0].row, col: 3 - cas0[0].col - cas0[1].col };
+              //if (cas0.length === 3) casEl0 = cas0[2];
+            } else if (cas0[0].col === cas0[1].col && this.props.values[3 - cas0[0].row - cas0[1].row][cas0[0].col] === '-') {
+              casGan0 = { col: cas0[0].col, row: 3 - cas0[0].row - cas0[1].row };
+              //if (cas0.length === 3) casEl0 = cas0[2];
+            }
+          } else if (cas0.length === 3) {
+            //alert('sii');
+            if (cas0[0].row === cas0[1].row && this.props.values[cas0[0].row][3 - cas0[0].col - cas0[1].col] === '-') {
+              casGan0 = { row: cas0[0].row, col: 3 - cas0[0].col - cas0[1].col };
+              casEl0 = cas0[2];
+            } else if (cas0[0].col === cas0[1].col && this.props.values[3 - cas0[0].row - cas0[1].row][cas0[0].col] === '-') {
+              casGan0 = { col: cas0[0].col, row: 3 - cas0[0].row - cas0[1].row };
+              casEl0 = cas0[2];
+            } else if (cas0[0].row === cas0[2].row && this.props.values[cas0[0].row][3 - cas0[0].col - cas0[2].col] === '-') {
+              casGan0 = { row: cas0[0].row, col: 3 - cas0[0].col - cas0[2].col };
+              casEl0 = cas0[1];
+            } else if (cas0[0].col === cas0[2].col && this.props.values[3 - cas0[0].row - cas0[2].row][cas0[0].col] === '-') {
+              casGan0 = { col: cas0[0].col, row: 3 - cas0[0].row - cas0[2].row };
+              if (cas0.length === 3) casEl0 = cas0[1];
+            } if (cas0[1].row === cas0[2].row && this.props.values[cas0[1].row][3 - cas0[1].col - cas0[2].col] === '-') {
+              casGan0 = { row: cas0[1].row, col: 3 - cas0[1].col - cas0[2].col };
+              casEl0 = cas0[0];
+            } else if (cas0[1].col === cas0[2].col && this.props.values[3 - cas0[1].row - cas0[2].row][cas0[1].col] === '-') {
+              casGan0 = { col: cas0[1].col, row: 3 - cas0[1].row - cas0[2].row };
+              if (cas0.length === 3) casEl0 = cas0[0];
+            }
+          }
+        }
 
         if (this.props.faseTurno.fase === 1) {
           if (casEl !== undefined) casilla = casEl
@@ -109,6 +145,7 @@ class App extends React.Component {
           elem = this.botones[casilla.row][casilla.col].current
         } else {
           if (casGan !== undefined) casilla = casGan
+          else if(casGan0 !== undefined) casilla = casGan0
           else casilla = vacias[Math.floor(vacias.length * Math.random())]
           elem = this.botones[casilla.row][casilla.col].current
         }
@@ -119,24 +156,7 @@ class App extends React.Component {
       let casGan;
       let casEl0;
       let casGan0;
-      if (casX.length > 0) {
-        for (let i = 0; i < casX.length; i++) {
-          let c = casX[i];
-          if (this.props.values[2 - c.row][2 - c.col] === '0') {
-            for (let j = 0; j < cas0.length; j++) {
-              if (cas0[j].row !== 2 - c.row || cas0[j].col !== 2 - c.col) {
-                casEl = cas0[j];//alert(JSON.stringify(casEl))
-                break;
-              }
-            }
-          }
-          if (this.props.values[2 - c.row][2 - c.col] === '-') {
-            //if(casX.length>1)casEl=casX[1-i];
-            casGan = { row: 2 - c.row, col: 2 - c.col }
-            break;
-          }
-        }
-      }
+      
 
       if (cas0.length === 2) {
         //alert(cas0[0].row+'-'+cas0[1].row+'|'+this.props.values[cas0[0].row][3-cas0[0].col-cas0[1].col])
@@ -167,6 +187,27 @@ class App extends React.Component {
         } else if (cas0[1].col === cas0[2].col && this.props.values[3 - cas0[1].row - cas0[2].row][cas0[1].col] === '-') {
           casGan0 = { col: cas0[1].col, row: 3 - cas0[1].row - cas0[2].row };
           if (cas0.length === 3) casEl0 = cas0[0];
+        }
+      }
+
+      if(casGan0 === undefined) {
+        if (casX.length > 0) {
+          for (let i = 0; i < casX.length; i++) {
+            let c = casX[i];
+            if (this.props.values[2 - c.row][2 - c.col] === '0') {
+              for (let j = 0; j < cas0.length; j++) {
+                if (cas0[j].row !== 2 - c.row || cas0[j].col !== 2 - c.col) {
+                  casEl = cas0[j];//alert(JSON.stringify(casEl))
+                  break;
+                }
+              }
+            }
+            if (this.props.values[2 - c.row][2 - c.col] === '-') {
+              //if(casX.length>1)casEl=casX[1-i];
+              casGan = { row: 2 - c.row, col: 2 - c.col }
+              break;
+            }
+          }
         }
       }
 
@@ -211,7 +252,6 @@ class App extends React.Component {
         <Replay replayClick={this.replayClick} thisProps={this.props} />
         <SelectorJugador ficha="PLAYERX" cambiaModoChange={this.cambiaModoChange} />
         <SelectorJugador ficha="PLAYER0" cambiaModoChange={this.cambiaModoChange} />
-        
       </div>
     );
   }
@@ -221,63 +261,3 @@ function mapStateToProps(state) {
 }
 export default connect(mapStateToProps)(App);
 
-/*function App() {
-  const [turn, setTurn] = useState(PLAYERX);
-  const [moves, setMoves] = useState(0);
-  const [values, setValues] = useState([
-    ['-', '-', '-'],
-    ['-', '-', '-'],
-    ['-', '-', '-']
-    ]);
-
-  useEffect(() => {
-    // Update the document title using the browser API
-    document.title = `Turn of ${turn}`;
-  });
-
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch(MYURL);
-      const myjson = await res.json();
-      console.log(myjson);
-      setTurn(myjson.turn);
-      setMoves(myjson.moves);
-      setValues(myjson.values);
-    }
-
-    fetchData();
-  }, []);
-
-  function appClick(rowNumber, columnNumber){
-    console.log("CLICK en: ", rowNumber, columnNumber);
-    let valuesCopy = JSON.parse(JSON.stringify(values));
-    let newMovement = turn === PLAYERX ? 'X' : '0';
-    valuesCopy[rowNumber][columnNumber] = newMovement;
-    setTurn(turn === PLAYERX ? PLAYER0 : PLAYERX);
-    setValues(valuesCopy);
-    setMoves(moves=>moves+1);
-  }
-
-  function resetClick(){
-    setTurn(PLAYERX);
-    setMoves(0);
-    setValues([
-      ['-', '-', '-'],
-      ['-', '-', '-'],
-      ['-', '-', '-']
-      ]);
-  }
-
-  let text = "Turn of " + turn;
-  return (
-    <div className='App'>
-      <h2>Tic Tac Toe</h2>
-      <Header text={text}/>
-      <Board values={values} appClick={appClick}/>
-      <h3>Número de movimientos: {moves}</h3>
-      <Reset resetClick={resetClick}></Reset>
-    </div>
-  );
-}
-
-export default App;*/
