@@ -11,7 +11,8 @@ function SelectorJugador(props) {
     <h1 style={{width: '9em',  fontSize: 'calc(11px + 2vmin)', backgroundColor: color}}>{props.ficha}: 
     <Form.Select aria-label="Default select example" style={{backgroundColor: color}} onChange={(e) => { modoChange(e.target.value)}}>
       <option value="humano">humano</option>
-      <option value="ordenador">ordenador</option>
+      <option value="ordenador medio">ordenador medio</option>
+      <option value="ordenador invencible">ordenador invencible</option>
     </Form.Select></h1>
   );
 }
