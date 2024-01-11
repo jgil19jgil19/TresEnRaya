@@ -42,11 +42,11 @@ class App extends React.Component {
   }
   appClick(rowNumber, columnNumber) {
     this.props.dispatch(playPosition(rowNumber, columnNumber, this.props.turn, this.props.values, this.resetClick, this.props.historico, this.props.faseTurno, this.props.moves));
-    setTimeout(() => { this.ordenadorFacil() }, 10);
+    setTimeout(() => { this.ordenadorFacil() }, 2);
   }
   resetClick() {
     this.props.dispatch(reset());
-    setTimeout(() => { this.ordenadorFacil() }, 10);
+    setTimeout(() => { this.ordenadorFacil() }, 2);
   }
   deshacerClick() {
     this.props.dispatch(deshacer(this.props.historico, this.props.turn, this.props.moves, this.props.faseTurno));
@@ -60,7 +60,7 @@ class App extends React.Component {
   cambiaModoChange(jugador, modo) {
     //console.log(jugador+': '+modo);
     this.props.dispatch(cambiaModo(jugador, modo))
-    setTimeout(() => { this.ordenadorFacil() }, 10);
+    setTimeout(() => { this.ordenadorFacil() }, 2);
   }
 
   ordenadorFacil() {//inteligencia del ordenador para determinar sus movimientos
@@ -68,6 +68,7 @@ class App extends React.Component {
     let casX = [];
     let cas0 = [];
     let vacias = [];
+    let esquinas={n:0, elegible:[0,0,0,0]}
     this.props.values.forEach((fila, i) => {
       fila.forEach((celda, j) => {
         switch (celda) {
@@ -75,7 +76,35 @@ class App extends React.Component {
             if (i !== 1 || j !== 1) casX.push({ row: i, col: j });
             break;
           case '0': cas0.push({ row: i, col: j }); break;
-          case '-': vacias.push({ row: i, col: j }); break;
+          case '-': 
+            vacias.push({ row: i, col: j });
+            esquinas.n++
+            if(i===0&&j===0){
+              esquinas.elegible[0]++;
+              if(this.props.values[0][1]=='-')esquinas.elegible[0]++;
+              if(this.props.values[0][2]=='-')esquinas.elegible[0]++;
+              if(this.props.values[1][0]=='-')esquinas.elegible[0]++;
+              if(this.props.values[2][0]=='-')esquinas.elegible[0]++;
+            }else if(i===0&&j===2){
+              esquinas.elegible[1]++;
+              if(this.props.values[0][0]=='-')esquinas.elegible[1]++;
+              if(this.props.values[0][1]=='-')esquinas.elegible[1]++;
+              if(this.props.values[1][2]=='-')esquinas.elegible[1]++;
+              if(this.props.values[2][2]=='-')esquinas.elegible[1]++;
+            }else if(i===2&&j===0){
+              esquinas.elegible[2]++;
+              if(this.props.values[0][0]=='-')esquinas.elegible[2]++;
+              if(this.props.values[1][0]=='-')esquinas.elegible[2]++;
+              if(this.props.values[2][1]=='-')esquinas.elegible[2]++;
+              if(this.props.values[2][2]=='-')esquinas.elegible[2]++;
+            }else if(i===2&&j===2){
+              esquinas.elegible[3]++;
+              if(this.props.values[0][2]=='-')esquinas.elegible[3]++;
+              if(this.props.values[1][2]=='-')esquinas.elegible[3]++;
+              if(this.props.values[2][1]=='-')esquinas.elegible[3]++;
+              if(this.props.values[2][0]=='-')esquinas.elegible[3]++;
+            }
+          break;
           default: ;
         }
       })
@@ -153,12 +182,36 @@ class App extends React.Component {
                 break;
               }
             }
-          } else casilla = casX[Math.floor(2 * Math.random())]
-          elem = this.botones[casilla.row][casilla.col].current
+          }else {
+            for (let i=0;i<casX.length;i++){
+              if(Math.abs(casX[i].row-casX[i].col)%2===0){
+                casEl0=casX[1-i];
+              }
+            }
+            if(casEl0 !== undefined) casilla = casEl0;
+            else casilla = casX[Math.floor(2 * Math.random())]
+          }
+          elem = this.botones[casilla.row][casilla.col].current;
         } else {
           if (casGan !== undefined) casilla = casGan
           else if(casGan0 !== undefined) casilla = casGan0
-          else casilla = vacias[Math.floor(vacias.length * Math.random())]
+          else {
+            if(esquinas.n===3){
+              for(let i=0;i<4;i++){
+                if(esquinas.elegible[i]===3){
+                  switch (i){
+                    case 0: casGan0={row:0,col:0};break;
+                    case 1: casGan0={row:0,col:2};break;
+                    case 2: casGan0={row:2,col:0};break;
+                    default: casGan0={row:2,col:2};
+                  }
+                  break;
+                }
+              }
+            }
+            if(casGan0 !== undefined) casilla = casGan0
+            else casilla = vacias[Math.floor(vacias.length * Math.random())]
+          }
           elem = this.botones[casilla.row][casilla.col].current
         }
       }
@@ -258,6 +311,7 @@ class App extends React.Component {
       }
     }
     elem.click();
+    //console.log(JSON.stringify(esquinas))
     //if(this.props.jugadores===)
   }
 
