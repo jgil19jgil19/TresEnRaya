@@ -117,31 +117,43 @@ class App extends React.Component {
             }
           } else if (cas0.length === 3) {
             //alert('sii');
-            if (cas0[0].row === cas0[1].row && this.props.values[cas0[0].row][3 - cas0[0].col - cas0[1].col] === '-') {
-              casGan0 = { row: cas0[0].row, col: 3 - cas0[0].col - cas0[1].col };
-              casEl0 = cas0[2];
-            } else if (cas0[0].col === cas0[1].col && this.props.values[3 - cas0[0].row - cas0[1].row][cas0[0].col] === '-') {
-              casGan0 = { col: cas0[0].col, row: 3 - cas0[0].row - cas0[1].row };
-              casEl0 = cas0[2];
-            } else if (cas0[0].row === cas0[2].row && this.props.values[cas0[0].row][3 - cas0[0].col - cas0[2].col] === '-') {
-              casGan0 = { row: cas0[0].row, col: 3 - cas0[0].col - cas0[2].col };
-              casEl0 = cas0[1];
-            } else if (cas0[0].col === cas0[2].col && this.props.values[3 - cas0[0].row - cas0[2].row][cas0[0].col] === '-') {
-              casGan0 = { col: cas0[0].col, row: 3 - cas0[0].row - cas0[2].row };
-              if (cas0.length === 3) casEl0 = cas0[1];
-            } if (cas0[1].row === cas0[2].row && this.props.values[cas0[1].row][3 - cas0[1].col - cas0[2].col] === '-') {
-              casGan0 = { row: cas0[1].row, col: 3 - cas0[1].col - cas0[2].col };
-              casEl0 = cas0[0];
-            } else if (cas0[1].col === cas0[2].col && this.props.values[3 - cas0[1].row - cas0[2].row][cas0[1].col] === '-') {
-              casGan0 = { col: cas0[1].col, row: 3 - cas0[1].row - cas0[2].row };
-              if (cas0.length === 3) casEl0 = cas0[0];
+            if (cas0[0].row === cas0[1].row&&cas0[0].row!==1) {
+              if(this.props.values[cas0[0].row][3 - cas0[0].col - cas0[1].col] === '-') casGan0 = { row: cas0[0].row, col: 3 - cas0[0].col - cas0[1].col };
+              else casEl0 = { row: cas0[0].row, col: 3 - cas0[0].col - cas0[1].col };
+            } 
+            if (cas0[0].col === cas0[1].col&&cas0[0].col!==1) {
+              if(this.props.values[3 - cas0[0].row - cas0[1].row][cas0[0].col] === '-')casGan0 = { col: cas0[0].col, row: 3 - cas0[0].row - cas0[1].row };
+              else casEl0 = { col: cas0[0].col, row: 3 - cas0[0].row - cas0[1].row };
+            } 
+            if (cas0[0].row === cas0[2].row&&cas0[0].row!==1) {
+              if(this.props.values[cas0[0].row][3 - cas0[0].col - cas0[2].col] === '-')casGan0 = { row: cas0[0].row, col: 3 - cas0[0].col - cas0[2].col };
+              else casEl0 = { row: cas0[0].row, col: 3 - cas0[0].col - cas0[2].col };
+            } 
+            if (cas0[0].col === cas0[2].col&&cas0[0].col!==1) {
+              if(this.props.values[3 - cas0[0].row - cas0[2].row][cas0[0].col] === '-')casGan0 = { col: cas0[0].col, row: 3 - cas0[0].row - cas0[2].row };
+              else casEl0 = { col: cas0[0].col, row: 3 - cas0[0].row - cas0[2].row };
+            } 
+            if (cas0[1].row === cas0[2].row&&cas0[1].row!==1) {
+              if(this.props.values[cas0[1].row][3 - cas0[1].col - cas0[2].col] === '-')casGan0 = { row: cas0[1].row, col: 3 - cas0[1].col - cas0[2].col };
+              else casEl0 = { row: cas0[1].row, col: 3 - cas0[1].col - cas0[2].col };
+            } 
+            if (cas0[1].col === cas0[2].col&&cas0[1].col!==1) {
+              if(this.props.values[3 - cas0[1].row - cas0[2].row][cas0[1].col] === '-')casGan0 = { col: cas0[1].col, row: 3 - cas0[1].row - cas0[2].row };
+              else casEl0 = { col: cas0[1].col, row: 3 - cas0[1].row - cas0[2].row };
             }
           }
         }
 
         if (this.props.faseTurno.fase === 1) {
-          if (casEl !== undefined) casilla = casEl
-          else casilla = casX[Math.floor(2 * Math.random())]
+          if (casEl !== undefined) casilla = casEl;
+          else if(casEl0 !== undefined){//alert(JSON.stringify(casEl0)+'\n'+JSON.stringify(casX))
+            for(let i=0;i<casX.length;i++){
+              if(casX[i].row===casEl0.row&&casX[i].col===casEl0.col){
+                casilla=casX[1-i];
+                break;
+              }
+            }
+          } else casilla = casX[Math.floor(2 * Math.random())]
           elem = this.botones[casilla.row][casilla.col].current
         } else {
           if (casGan !== undefined) casilla = casGan
@@ -180,33 +192,47 @@ class App extends React.Component {
           casEl0 = cas0[1];
         } else if (cas0[0].col === cas0[2].col && this.props.values[3 - cas0[0].row - cas0[2].row][cas0[0].col] === '-') {
           casGan0 = { col: cas0[0].col, row: 3 - cas0[0].row - cas0[2].row };
-          if (cas0.length === 3) casEl0 = cas0[1];
+          casEl0 = cas0[1];
         } if (cas0[1].row === cas0[2].row && this.props.values[cas0[1].row][3 - cas0[1].col - cas0[2].col] === '-') {
           casGan0 = { row: cas0[1].row, col: 3 - cas0[1].col - cas0[2].col };
           casEl0 = cas0[0];
         } else if (cas0[1].col === cas0[2].col && this.props.values[3 - cas0[1].row - cas0[2].row][cas0[1].col] === '-') {
           casGan0 = { col: cas0[1].col, row: 3 - cas0[1].row - cas0[2].row };
-          if (cas0.length === 3) casEl0 = cas0[0];
+          casEl0 = cas0[0];
         }
       }
 
       if(casGan0 === undefined) {
         if (casX.length > 0) {
+          let sum=0;
+          let indices=[];
           for (let i = 0; i < casX.length; i++) {
             let c = casX[i];
-            if (this.props.values[2 - c.row][2 - c.col] === '0') {
+            if (this.props.faseTurno.fase === 1&&this.props.values[2 - c.row][2 - c.col] === '0') {//alert('['+([2 - c.row])+','+([2 - c.col])+']'+JSON.stringify(cas0))
               for (let j = 0; j < cas0.length; j++) {
-                if (cas0[j].row !== 2 - c.row || cas0[j].col !== 2 - c.col) {
-                  casEl = cas0[j];//alert(JSON.stringify(casEl))
+                if (cas0[j].row === 2 - c.row && cas0[j].col === 2 - c.col) {
+                  //casEl = cas0[j];alert(JSON.stringify(casEl))
+                  indices.push(j);
+                  sum+=j;
                   break;
                 }
+
               }
             }
-            if (this.props.values[2 - c.row][2 - c.col] === '-') {
+            if (this.props.faseTurno.fase === 2&&this.props.values[2 - c.row][2 - c.col] === '-') {
               //if(casX.length>1)casEl=casX[1-i];
               casGan = { row: 2 - c.row, col: 2 - c.col }
               break;
             }
+          }
+          if (this.props.faseTurno.fase === 1){
+            if(indices.length===2){
+              casEl = cas0[3-sum];
+            }else{
+              casEl = cas0[0];
+              if(sum===0)casEl = cas0[1]
+            }
+            //alert(sum+JSON.stringify(indices)+'\n'+JSON.stringify(cas0)+JSON.stringify(casEl))
           }
         }
       }
