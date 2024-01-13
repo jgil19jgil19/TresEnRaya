@@ -307,7 +307,7 @@ class App extends React.Component {
         {
           if (this.props.jugadores.PLAYER0 === 'ordenador invencible') {
             if (casEl !== undefined) casilla = casEl;
-            else casil=la = cas0[Math.floor(3 * Math.random())]
+            else casilla = cas0[Math.floor(3 * Math.random())]
           }else{
             let p=Math.random()*10;
             if(p<9.1){
