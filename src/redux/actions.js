@@ -53,3 +53,17 @@ export function cambiaModo(jugador, modo) {
         modo: modo
     };
 }
+
+export function reloj(tx,t0,limite) {
+    return {
+        type: 'TIC',
+        tx,t0,limite
+    };
+}
+
+export function ponLimite(limite) {
+    return {
+        type: 'PONLIMITE',
+        limite
+    };
+}

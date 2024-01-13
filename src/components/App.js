@@ -6,6 +6,7 @@ import Deshacer from './Deshacer';
 import Rehacer from './Rehacer';
 import Replay from './Replay';
 import SelectorJugador from './SelectorJuagador';
+import Temporizador from './Temporizador';
 
 
 
@@ -15,12 +16,13 @@ import { PLAYER0, PLAYERX } from '../constants/constants';
 //import { useState, useEffect} from 'react';
 import React from 'react';
 import { connect } from 'react-redux';
-import { playPosition, reset, deshacer, rehacer, replay, cambiaModo } from '../redux/actions';
+import { playPosition, reset, deshacer, rehacer, replay, cambiaModo, reloj, ponLimite } from '../redux/actions';
 
 //const PLAYERX = "Player 1 - Xs";
 //const PLAYER0 = "Player 2 - 0s";
 //const MYURL = "https://api.npoint.io/c734e05e43c5b87dd971";
 import 'bootstrap/dist/css/bootstrap.min.css';
+//import Temporizador from './Temporizador';
 
 class App extends React.Component {
   constructor(props) {
@@ -31,6 +33,8 @@ class App extends React.Component {
     this.rehacerClick = this.rehacerClick.bind(this);
     this.replayClick = this.replayClick.bind(this);
     this.cambiaModoChange = this.cambiaModoChange.bind(this);
+    this.relojTic = this.relojTic.bind(this);
+    this.ponLimiteClick = this.ponLimiteClick.bind(this);
 
     this.botones = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
     for (let i = 0; i < 3; i++) {//creacion de las referencias para hacer click en los botones
@@ -39,10 +43,17 @@ class App extends React.Component {
       }
     }
 
+    this.crono=undefined;
+
   }
   appClick(rowNumber, columnNumber) {
     this.props.dispatch(playPosition(rowNumber, columnNumber, this.props.turn, this.props.values, this.resetClick, this.props.historico, this.props.faseTurno, this.props.moves));
     setTimeout(() => { this.ordenadorFacil() }, 2);
+
+    if(this.props.faseTurno.fase===0) {
+      //alert('Se ha lanzado crono:' +this.crono)
+      this.crono=setInterval(this.relojTic,10);
+    }
   }
   resetClick() {
     this.props.dispatch(reset());
@@ -61,6 +72,17 @@ class App extends React.Component {
     //console.log(jugador+': '+modo);
     this.props.dispatch(cambiaModo(jugador, modo))
     setTimeout(() => { this.ordenadorFacil() }, 2);
+  }
+  relojTic(){
+    //alert('confirmamos que crono:' +this.crono)
+    if(this.props.finalizado){
+      clearInterval(this.crono);
+    }
+    this.props.dispatch(reloj(this.props.tiempo.PLAYERX,this.props.tiempo.PLAYER0,this.props.tiempo.limite));
+  }
+
+  ponLimiteClick(limite){
+    this.props.dispatch(ponLimite(limite));
   }
 
   ordenadorFacil() {//inteligencia del ordenador para determinar sus movimientos
@@ -326,7 +348,7 @@ class App extends React.Component {
         elem = this.botones[casilla.row][casilla.col].current
       }
     }
-    elem.click();
+    if(elem!==undefined)elem.click();
     //console.log(JSON.stringify(esquinas))
     //if(this.props.jugadores===)
   }
@@ -348,6 +370,7 @@ class App extends React.Component {
         <Replay replayClick={this.replayClick} thisProps={this.props} />
         <SelectorJugador ficha="PLAYERX" cambiaModoChange={this.cambiaModoChange} />
         <SelectorJugador ficha="PLAYER0" cambiaModoChange={this.cambiaModoChange} />
+        <Temporizador tx={this.props.tiempo.PLAYERX} t0={this.props.tiempo.PLAYER0} ponLimiteClick={this.ponLimiteClick}/>
       </div>
     );
   }
@@ -356,4 +379,6 @@ function mapStateToProps(state) {
   return { ...state };
 }
 export default connect(mapStateToProps)(App);
+
+//<Temporizador tx={this.props.tiempo.PLAYERX}/>
 

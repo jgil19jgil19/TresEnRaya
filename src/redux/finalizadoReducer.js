@@ -41,8 +41,14 @@ function finalizadoReducer(state = false, action) {
                 let tablero_R = JSON.parse(action.historico.values[action.historico.n]);
                 return comprueba(tablero_R);
             }else return state;
+        case 'TIC':
+            if(action.limite>0){
+                return (action.tx>action.limite||action.t0>action.limite)
+            }else return state;
         default:
             return state;
     }
 }
 export default finalizadoReducer;
+
+//tx,t0,limite

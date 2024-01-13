@@ -9,7 +9,8 @@ export default class ReduxProvider extends React.Component {
     constructor(props) {
         super(props);
         this.initialState = { values: VALUES, turn: PLAYERX, moves: 0, historico:{values:[JSON.stringify(VALUES)],n:1},
-         finalizado:false, faseTurno:{fase:0,x:-1,y:-1,turno:'X'}, modoPlay:false, jugadores:{PLAYERX:'humano', PLAYER0:'humano'}}
+         finalizado:false, faseTurno:{fase:0,x:-1,y:-1,turno:'X'}, modoPlay:false, jugadores:{PLAYERX:'humano', PLAYER0:'humano'},
+         tiempo:{PLAYERX:0, PLAYER0:0, activo:PLAYERX, limite: 0}}
         this.store = createStore(GlobalState, this.initialState);
     }
     render() {
