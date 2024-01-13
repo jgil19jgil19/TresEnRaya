@@ -43,7 +43,8 @@ function finalizadoReducer(state = false, action) {
             }else return state;
         case 'TIC':
             if(action.limite>0){
-                return (action.tx>action.limite||action.t0>action.limite)
+                if(!state)return (action.tx>action.limite||action.t0>action.limite)
+                return state;
             }else return state;
         default:
             return state;

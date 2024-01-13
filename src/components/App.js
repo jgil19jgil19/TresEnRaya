@@ -48,7 +48,7 @@ class App extends React.Component {
   }
   appClick(rowNumber, columnNumber) {
     this.props.dispatch(playPosition(rowNumber, columnNumber, this.props.turn, this.props.values, this.resetClick, this.props.historico, this.props.faseTurno, this.props.moves));
-    setTimeout(() => { this.ordenadorFacil() }, 2);
+    if (!this.props.finalizado)setTimeout(() => { this.ordenadorFacil() }, 2);
 
     if(this.props.faseTurno.fase===0) {
       //alert('Se ha lanzado crono:' +this.crono)
@@ -71,7 +71,7 @@ class App extends React.Component {
   cambiaModoChange(jugador, modo) {
     //console.log(jugador+': '+modo);
     this.props.dispatch(cambiaModo(jugador, modo))
-    setTimeout(() => { this.ordenadorFacil() }, 2);
+    if (!this.props.finalizado)setTimeout(() => { this.ordenadorFacil() }, 2);
   }
   relojTic(){
     //alert('confirmamos que crono:' +this.crono)

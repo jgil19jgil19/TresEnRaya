@@ -19,6 +19,7 @@ export default function Temporizador(props) {
     <span style={{fontWeight: 'bold'}}>TIEMPO MÁXIMO POR JUGADOR:</span>
     <Form.Select aria-label="Default select example" style={{width: '12em', backgroundColor: 'yellow'}} onChange={(e) => { props.ponLimiteClick(e.target.value)}}>
       <option value="0">Sin limite</option>
+      <option value="1500">15 segundos</option>
       <option value="3000">30 segundos</option>
       <option value="6000">1 minuto</option>
       <option value="12000">2 minutos</option>
