@@ -81,28 +81,28 @@ class App extends React.Component {
             esquinas.n++
             if (i === 0 && j === 0) {
               esquinas.elegible[0]++;
-              if (this.props.values[0][1] == '-') esquinas.elegible[0]++;
-              if (this.props.values[0][2] == '-') esquinas.elegible[0]++;
-              if (this.props.values[1][0] == '-') esquinas.elegible[0]++;
-              if (this.props.values[2][0] == '-') esquinas.elegible[0]++;
+              if (this.props.values[0][1] === '-') esquinas.elegible[0]++;
+              if (this.props.values[0][2] === '-') esquinas.elegible[0]++;
+              if (this.props.values[1][0] === '-') esquinas.elegible[0]++;
+              if (this.props.values[2][0] === '-') esquinas.elegible[0]++;
             } else if (i === 0 && j === 2) {
               esquinas.elegible[1]++;
-              if (this.props.values[0][0] == '-') esquinas.elegible[1]++;
-              if (this.props.values[0][1] == '-') esquinas.elegible[1]++;
-              if (this.props.values[1][2] == '-') esquinas.elegible[1]++;
-              if (this.props.values[2][2] == '-') esquinas.elegible[1]++;
+              if (this.props.values[0][0] === '-') esquinas.elegible[1]++;
+              if (this.props.values[0][1] === '-') esquinas.elegible[1]++;
+              if (this.props.values[1][2] === '-') esquinas.elegible[1]++;
+              if (this.props.values[2][2] === '-') esquinas.elegible[1]++;
             } else if (i === 2 && j === 0) {
               esquinas.elegible[2]++;
-              if (this.props.values[0][0] == '-') esquinas.elegible[2]++;
-              if (this.props.values[1][0] == '-') esquinas.elegible[2]++;
-              if (this.props.values[2][1] == '-') esquinas.elegible[2]++;
-              if (this.props.values[2][2] == '-') esquinas.elegible[2]++;
+              if (this.props.values[0][0] === '-') esquinas.elegible[2]++;
+              if (this.props.values[1][0] === '-') esquinas.elegible[2]++;
+              if (this.props.values[2][1] === '-') esquinas.elegible[2]++;
+              if (this.props.values[2][2] === '-') esquinas.elegible[2]++;
             } else if (i === 2 && j === 2) {
               esquinas.elegible[3]++;
-              if (this.props.values[0][2] == '-') esquinas.elegible[3]++;
-              if (this.props.values[1][2] == '-') esquinas.elegible[3]++;
-              if (this.props.values[2][1] == '-') esquinas.elegible[3]++;
-              if (this.props.values[2][0] == '-') esquinas.elegible[3]++;
+              if (this.props.values[0][2] === '-') esquinas.elegible[3]++;
+              if (this.props.values[1][2] === '-') esquinas.elegible[3]++;
+              if (this.props.values[2][1] === '-') esquinas.elegible[3]++;
+              if (this.props.values[2][0] === '-') esquinas.elegible[3]++;
             }
             break;
           default: ;
@@ -307,7 +307,7 @@ class App extends React.Component {
         {
           if (this.props.jugadores.PLAYER0 === 'ordenador invencible') {
             if (casEl !== undefined) casilla = casEl;
-            else casilla = cas0[Math.floor(3 * Math.random())]
+            else casil=la = cas0[Math.floor(3 * Math.random())]
           }else{
             let p=Math.random()*10;
             if(p<9.1){
