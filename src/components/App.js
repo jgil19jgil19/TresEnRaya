@@ -367,10 +367,10 @@ class App extends React.Component {
         <Rehacer rehacerClick={this.rehacerClick} thisProps={this.props} />
         {!this.props.finalizado && <header className="info">{this.props.faseTurno.fase === 0 ? 'Se debe poner en el centro.' : this.props.faseTurno.fase === 2 ? 'Elige la casilla para poner la ficha' : 'Elige la ficha a desplazar'} </header>}
         {this.props.finalizado && <Header text={this.props.turn === PLAYERX ? '¡GANA 000!' : '¡GANA XXX!'} />}
-        <Replay replayClick={this.replayClick} thisProps={this.props} />
         <SelectorJugador ficha="PLAYERX" cambiaModoChange={this.cambiaModoChange} />
         <SelectorJugador ficha="PLAYER0" cambiaModoChange={this.cambiaModoChange} />
         <Temporizador tx={this.props.tiempo.PLAYERX} t0={this.props.tiempo.PLAYER0} ponLimiteClick={this.ponLimiteClick}/>
+        <Replay replayClick={this.replayClick} thisProps={this.props} />
       </div>
     );
   }
