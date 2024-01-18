@@ -56,6 +56,7 @@ class App extends React.Component {
     }
   }
   resetClick() {
+    if(this.crono!==undefined)clearInterval(this.crono);
     this.props.dispatch(reset());
     setTimeout(() => { this.ordenadorFacil() }, 2);
   }
@@ -353,6 +354,16 @@ class App extends React.Component {
     //if(this.props.jugadores===)
   }
 
+  ganador(){
+    //tiempo:{PLAYERX:0, PLAYER0:0, activo:PLAYERX, limite: 0}
+    if (this.props.tiempo.limite>0 && (this.props.tiempo.PLAYERX>this.props.tiempo.limite||this.props.tiempo.PLAYER0>this.props.tiempo.limite)){
+      if(this.props.tiempo.PLAYERX>this.props.tiempo.PLAYER0) return '¡GANA 000!';
+      else return '¡GANA XXX!';
+    }else{
+      return this.props.turn === PLAYERX ? '¡GANA 000!' : '¡GANA XXX!'
+    }
+  }
+
   render() {
     //alert(this.props.finalizado);
     //const [botones,setBotones]=useState([[0,0,0],[0,0,0],[0,0,0]]);
@@ -366,7 +377,7 @@ class App extends React.Component {
         <Deshacer deshacerClick={this.deshacerClick} thisProps={this.props} />
         <Rehacer rehacerClick={this.rehacerClick} thisProps={this.props} />
         {!this.props.finalizado && <header className="info">{this.props.faseTurno.fase === 0 ? 'Se debe poner en el centro.' : this.props.faseTurno.fase === 2 ? 'Elige la casilla para poner la ficha' : 'Elige la ficha a desplazar'} </header>}
-        {this.props.finalizado && <Header text={this.props.turn === PLAYERX ? '¡GANA 000!' : '¡GANA XXX!'} />}
+        {this.props.finalizado && <Header text={this.ganador()}/>}
         <SelectorJugador ficha="PLAYERX" cambiaModoChange={this.cambiaModoChange} />
         <SelectorJugador ficha="PLAYER0" cambiaModoChange={this.cambiaModoChange} />
         <Temporizador tx={this.props.tiempo.PLAYERX} t0={this.props.tiempo.PLAYER0} ponLimiteClick={this.ponLimiteClick}/>
@@ -381,4 +392,6 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(App);
 
 //<Temporizador tx={this.props.tiempo.PLAYERX}/>
+//{this.props.finalizado && <Header text={this.props.turn === PLAYERX ? '¡GANA 000!' : '¡GANA XXX!'} />}
+        
 
